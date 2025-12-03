@@ -4,7 +4,7 @@ import json
 import subprocess
 from pathlib import Path
 import shutil
-from typing import Tuple, Dict
+from typing import Tuple
 
 # --- IMPORT CONFIGURATIONS ---
 # Ensure these modules exist in your environment
@@ -15,8 +15,24 @@ import pydicom
 from pydicom.multival import MultiValue
 from pydicom.sequence import Sequence
 import nibabel as nib
-import numpy as np
 import ants  # ANTsPy
+
+
+# -----------------------------
+# Filename helpers
+# -----------------------------
+def defaced_nifti_name(original_path: Path) -> str:
+    """
+    Replace .nii.gz -> _defaced.nii.gz
+    Replace .nii    -> _defaced.nii.gz
+    Otherwise append _defaced.nii.gz
+    """
+    name = original_path.name
+    if name.endswith(".nii.gz"):
+        return name[:-7] + "_defaced.nii.gz"
+    if name.endswith(".nii"):
+        return name[:-4] + "_defaced.nii.gz"
+    return original_path.stem + "_defaced.nii.gz"
 
 
 # --- DICOM Helpers ---
@@ -179,14 +195,14 @@ def is_candidate_for_defacing(meta: dict) -> bool:
     struct_keywords = [k.lower() for k in conf.get("structural_keywords", [])]
     min_mtx = conf.get("min_matrix_size", 128)
 
-    # 1. Check BLACKLIST
+    # 1. BLACKLIST
     if any(k in full_str for k in skip_keywords):
         return False
 
-    # 2. Check WHITELIST (Structural types)
+    # 2. WHITELIST (Structural types)
     is_structural = any(k in full_str for k in struct_keywords)
 
-    # 3. Check Resolution
+    # 3. Resolution
     try:
         rows = int(meta.get("Rows") or 0)
         cols = int(meta.get("Columns") or 0)
@@ -211,10 +227,7 @@ def run_dcm2niix(series_dir: Path, output_dir: Path, outname_prefix: str):
     subprocess.run(cmd, check=True)
 
 
-def run_mideface(
-        input_nifti: Path,
-        output_dir: Path,
-) -> Tuple[Path, Path]:
+def run_mideface(input_nifti: Path, output_dir: Path) -> Tuple[Path, Path]:
     tmp_dir = output_dir / "_mideface_tmp"
     tmp_dir.mkdir(parents=True, exist_ok=True)
 
@@ -247,11 +260,11 @@ def run_mideface(
     # defaced image
     if nifti_candidates:
         chosen = pick_preferred(nifti_candidates)
-        final_defaced_path = output_dir / f"{input_nifti.stem}_defaced{''.join(chosen.suffixes)}"
+        final_defaced_path = output_dir / defaced_nifti_name(input_nifti)
         shutil.move(str(chosen), str(final_defaced_path))
     elif mgz_candidates:
         chosen = pick_preferred(mgz_candidates)
-        final_defaced_path = output_dir / f"{input_nifti.stem}_defaced.nii.gz"
+        final_defaced_path = output_dir / defaced_nifti_name(input_nifti)
         if not mri_convert_tool:
             shutil.rmtree(tmp_dir, ignore_errors=True)
             raise RuntimeError("mideface produced defaced .mgz but mri_convert_path is empty in config.")
@@ -305,11 +318,6 @@ def deface_moving_via_t1_mask(
         defaced_output: Path,
         transform_output: Path = None,
 ):
-    """
-    Registers 'moving_img' (e.g. T2/FLAIR) to 't1_img' using RIGID registration.
-    Then applies the INVERSE transform to 't1_mask' to bring the face mask
-    onto the moving image, and zeros out the face.
-    """
     print(f"[INFO] Registering (Rigid) {moving_img.name} -> {t1_img.name}")
 
     fixed = ants.image_read(str(t1_img))
@@ -361,7 +369,7 @@ def make_jsonable(obj):
         return [make_jsonable(v) for v in obj]
     elif isinstance(obj, MultiValue):
         return [make_jsonable(v) for v in obj]
-    elif isinstance(obj, Sequence):
+    elif isinstance(obj, pydicom.sequence.Sequence):
         return [make_jsonable(v) for v in obj]
     try:
         json.dumps(obj)
@@ -384,25 +392,20 @@ def cleanup_outdir_keep_defaced_only(outdir: Path, defaced_dir: Path):
             shutil.rmtree(item, ignore_errors=True)
 
 
-def main():
-    parser = argparse.ArgumentParser(
-        description="DICOM -> NIfTI with configured defacing pipeline."
-    )
-    parser.add_argument("--session_dir", default=paths_config.SESSION_DIR,
-                        help="session root folder")
-    parser.add_argument("--outdir", default=paths_config.OUTPUT_DIR,
-                        help="output directory")
-
-    args = parser.parse_args()
-
-    session_dir = Path(args.session_dir).resolve()
-    outdir = Path(args.outdir).resolve()
+# -----------------------------
+# per-session wrapper
+# -----------------------------
+def process_single_session(session_dir: Path, outdir: Path):
+    session_dir = session_dir.resolve()
+    outdir = outdir.resolve()
     outdir.mkdir(parents=True, exist_ok=True)
 
+    print(f"\n{'=' * 80}")
     print(f"[INIT] Session Dir: {session_dir}")
-    print(f"[INIT] Output Dir: {outdir}")
+    print(f"[INIT] Output Dir:  {outdir}")
+    print(f"{'=' * 80}")
 
-    # NEW: final folder (always) + temp conversion folder
+    # final folder (always) + temp conversion folder
     defaced_dir = outdir / "defaced"
     defaced_dir.mkdir(exist_ok=True)
     conversion_dir = outdir / "_converted_tmp"
@@ -414,7 +417,9 @@ def main():
 
     # 1. Discover
     print("[INFO] Discovering DICOM series...")
+    found_any = False
     for series_dir, dicom_files in find_series_dirs(session_dir):
+        found_any = True
         file_count = len(dicom_files)
         slice_count = compute_slice_count(dicom_files)
         try:
@@ -431,6 +436,17 @@ def main():
 
         meta = extract_metadata(first_dcm, series_dir, num_instances=file_count, computed_slice_count=slice_count)
         all_metadata.append(meta)
+
+    # Always write a per-session report into THIS session's defaced folder
+    report_file = paths_config.REPORT_FILENAME  # now just a name, e.g. session_report.json
+    report_path = defaced_dir / report_file
+
+    if not found_any:
+        print(f"[WARN] No DICOM series found in {session_dir}. Writing empty report.")
+        with report_path.open("w", encoding="utf-8") as f:
+            json.dump(make_jsonable(session_report), f, indent=2)
+        cleanup_outdir_keep_defaced_only(outdir, defaced_dir)
+        return
 
     # 2. Filter
     min_slices = paths_config.MIN_SLICES
@@ -506,7 +522,10 @@ def main():
         if good_niftis:
             session_report.append({"status": "converted", "params": m})
         else:
-            m["reason"] = f"conversion produced no usable NIfTI after MIN_VOL_DIM filtering (MIN_VOL_DIM={min_vol_dim})"
+            m["reason"] = (
+                f"conversion produced no usable NIfTI after MIN_VOL_DIM filtering "
+                f"(MIN_VOL_DIM={min_vol_dim})"
+            )
             session_report.append({"status": "skipped", "params": m})
 
         for gn in good_niftis:
@@ -519,9 +538,7 @@ def main():
             if is_t1 and not t1_nifti_path:
                 t1_nifti_path = gn["path"]
 
-    # 5. Report -> save INSIDE defaced_dir so outdir can be cleaned to only defaced/
-    report_file = paths_config.REPORT_FILENAME
-    report_path = defaced_dir / report_file
+    # 5. Report (inside this session's defaced/)
     with report_path.open("w", encoding="utf-8") as f:
         json.dump(make_jsonable(session_report), f, indent=2)
     print(f"\n[INFO] Saved session report (metadata) to: {report_path}")
@@ -551,7 +568,7 @@ def main():
 
                 if is_candidate_for_defacing(nifti_info["meta"]):
                     print(f"\n[INFO] Defacing sequence: {source_path.name}")
-                    defaced_out = defaced_dir / f"{source_path.stem}_defaced.nii.gz"
+                    defaced_out = defaced_dir / defaced_nifti_name(source_path)
                     transform_out = defaced_dir / f"{source_path.stem}_to_t1.mat"
                     try:
                         deface_moving_via_t1_mask(
@@ -567,7 +584,6 @@ def main():
 
         elif skip_deface:
             print("\n[INFO] Skipping defacing (configured in paths_config).")
-            # Put *converted* outputs into defaced_dir as the final output location
             for nifti_info in all_nifti_files:
                 src = nifti_info["path"]
                 dst = defaced_dir / src.name
@@ -583,13 +599,49 @@ def main():
                     shutil.move(str(src), str(dst))
 
     finally:
-        # NEW: remove the conversion temp dir (so only defaced/ remains)
         shutil.rmtree(conversion_dir, ignore_errors=True)
-
-        # NEW: ensure outdir contains ONLY defaced/
         cleanup_outdir_keep_defaced_only(outdir, defaced_dir)
+        print(f"[INFO] Cleanup done. Only remaining folder: {defaced_dir}")
 
-        print(f"\n[INFO] Cleanup done. Only remaining folder: {defaced_dir}")
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="DICOM -> NIfTI with configured defacing pipeline (multi-session root supported)."
+    )
+    parser.add_argument("--session_dir", default=paths_config.SESSION_DIR,
+                        help="Root directory containing one or more session folders (or a single session).")
+    parser.add_argument("--outdir", default=paths_config.OUTPUT_DIR,
+                        help="Base output directory; each session will get its own subfolder here.")
+
+    args = parser.parse_args()
+
+    root_dir = Path(args.session_dir).resolve()
+    base_outdir = Path(args.outdir).resolve()
+    base_outdir.mkdir(parents=True, exist_ok=True)
+
+    if not root_dir.exists():
+        raise FileNotFoundError(f"Input directory does not exist: {root_dir}")
+
+    # collect candidate sessions: immediate subfolders
+    session_dirs = [p for p in root_dir.iterdir() if p.is_dir()]
+
+    # also handle case where root itself has DICOMs directly
+    has_dcm_in_root = any(
+        is_dicom_file(root_dir / f)
+        for f in os.listdir(root_dir)
+        if (root_dir / f).is_file()
+    )
+    if has_dcm_in_root:
+        session_dirs.insert(0, root_dir)
+
+    # if no subfolders, treat root as a single session (fallback)
+    if not session_dirs:
+        session_dirs = [root_dir]
+
+    # run per session
+    for sess in session_dirs:
+        session_outdir = base_outdir / sess.name
+        process_single_session(sess, session_outdir)
 
 
 if __name__ == "__main__":
