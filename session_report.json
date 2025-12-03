@@ -1,0 +1,1095 @@
+[
+  {
+    "status": "skipped",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/12-AAHead_Scout_MPR_cor/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.293542137024075923690412874250053839975",
+      "SeriesNumber": 12,
+      "SeriesDescription": "AAHead_Scout_MPR_cor",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 3.15,
+      "EchoTime": 1.37,
+      "InversionTime": "",
+      "FlipAngle": 8.0,
+      "PixelSpacing": [
+        1.600000024,
+        1.600000024
+      ],
+      "SliceThickness": 1.6000000238419,
+      "SpacingBetweenSlices": "",
+      "Rows": 162,
+      "Columns": 162,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99966846445418,
+        -0.0250009501689,
+        -0.0061574074477,
+        -0.007103199997,
+        -0.0379194165,
+        -0.9992555541012
+      ],
+      "ImagePositionPatient": [
+        -132.6903250172,
+        -40.648450217393,
+        121.13282917026
+      ],
+      "ScanningSequence": "GR",
+      "SequenceVariant": "SP",
+      "ScanOptions": "PFP",
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "MPR",
+        "NORM",
+        "DIS2D"
+      ],
+      "DerivedOrientation": "coronal",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "073258.747500",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 3,
+      "computed_slice_count": 3,
+      "reason": "fewer than min_slices (10)"
+    }
+  },
+  {
+    "status": "skipped",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/21-ep2d_bold_moco_p2_2mm_4mmslice/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.214238879337608234044506908772504079266",
+      "SeriesNumber": 21,
+      "SeriesDescription": "ep2d_bold_moco_p2_2mm_4mmslice",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 2000.0,
+      "EchoTime": 29.0,
+      "InversionTime": "",
+      "FlipAngle": 90.0,
+      "PixelSpacing": [
+        2.0,
+        2.0
+      ],
+      "SliceThickness": 4.0,
+      "SpacingBetweenSlices": 3.9999998954698,
+      "Rows": 624,
+      "Columns": 624,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99970823869231,
+        0.01802241407301,
+        -0.0160819800307,
+        -0.0226865284038,
+        0.92914855507525,
+        -0.3690098698281
+      ],
+      "ImagePositionPatient": [
+        -612.09871796396,
+        -611.24378547178,
+        193.26447358315
+      ],
+      "ScanningSequence": "EP",
+      "SequenceVariant": "SK",
+      "ScanOptions": "FS",
+      "MRAcquisitionType": "2D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "M",
+        "ND",
+        "MOSAIC"
+      ],
+      "DerivedOrientation": "axial",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "075928.810000",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 195,
+      "computed_slice_count": 1,
+      "reason": "fewer than min_slices (10)"
+    }
+  },
+  {
+    "status": "skipped",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/11-AAHead_Scout_MPR_sag/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.21743442325700171196560491539320478797",
+      "SeriesNumber": 11,
+      "SeriesDescription": "AAHead_Scout_MPR_sag",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 3.15,
+      "EchoTime": 1.37,
+      "InversionTime": "",
+      "FlipAngle": 8.0,
+      "PixelSpacing": [
+        1.600000024,
+        1.600000024
+      ],
+      "SliceThickness": 1.6000000238419,
+      "SpacingBetweenSlices": "",
+      "Rows": 162,
+      "Columns": 162,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.0006447527048,
+        0.99942478800457,
+        0.03390689334016,
+        0.00719160303204,
+        0.03390138941019,
+        -0.9993993079054
+      ],
+      "ImagePositionPatient": [
+        -4.2986613277286,
+        -150.60551927174,
+        101.00594898458
+      ],
+      "ScanningSequence": "GR",
+      "SequenceVariant": "SP",
+      "ScanOptions": "PFP",
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "MPR",
+        "NORM",
+        "DIS2D"
+      ],
+      "DerivedOrientation": "sagittal",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "073258.747500",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 5,
+      "computed_slice_count": 5,
+      "reason": "fewer than min_slices (10)"
+    }
+  },
+  {
+    "status": "skipped",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/22-MoCoSeries/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.319775688613361734345182885687632625077",
+      "SeriesNumber": 22,
+      "SeriesDescription": "MoCoSeries",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 2000.0,
+      "EchoTime": 29.0,
+      "InversionTime": "",
+      "FlipAngle": 90.0,
+      "PixelSpacing": [
+        2.0,
+        2.0
+      ],
+      "SliceThickness": 4.0,
+      "SpacingBetweenSlices": 3.9999998954698,
+      "Rows": 624,
+      "Columns": 624,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99970823869231,
+        0.01802241407301,
+        -0.0160819800307,
+        -0.0226865284038,
+        0.92914855507525,
+        -0.3690098698281
+      ],
+      "ImagePositionPatient": [
+        -612.09871796396,
+        -611.24378547178,
+        193.26447358315
+      ],
+      "ScanningSequence": "EP",
+      "SequenceVariant": "SK",
+      "ScanOptions": "FS",
+      "MRAcquisitionType": "2D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "M",
+        "ND",
+        "MOCO",
+        "MOSAIC"
+      ],
+      "DerivedOrientation": "axial",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "075858.810000",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 195,
+      "computed_slice_count": 1,
+      "reason": "fewer than min_slices (10)"
+    }
+  },
+  {
+    "status": "skipped",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/13-AAHead_Scout_MPR_tra/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.324440197233886262129085266344384280529",
+      "SeriesNumber": 13,
+      "SeriesDescription": "AAHead_Scout_MPR_tra",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 3.15,
+      "EchoTime": 1.37,
+      "InversionTime": "",
+      "FlipAngle": 8.0,
+      "PixelSpacing": [
+        1.600000024,
+        1.600000024
+      ],
+      "SliceThickness": 1.6000000238419,
+      "SpacingBetweenSlices": "",
+      "Rows": 162,
+      "Columns": 162,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99997393223013,
+        -0.0008882103238,
+        0.00716560832322,
+        0.00284073025507,
+        0.96076836282194,
+        -0.2773374898063
+      ],
+      "ImagePositionPatient": [
+        -133.48294596455,
+        -119.15248005176,
+        39.420116523426
+      ],
+      "ScanningSequence": "GR",
+      "SequenceVariant": "SP",
+      "ScanOptions": "PFP",
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "MPR",
+        "NORM",
+        "DIS2D"
+      ],
+      "DerivedOrientation": "axial",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "073258.747500",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 3,
+      "computed_slice_count": 3,
+      "reason": "fewer than min_slices (10)"
+    }
+  },
+  {
+    "status": "skipped",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/23-ep2d_diff_mddw64_p2_MP/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.106835450531878570450830684115861675341",
+      "SeriesNumber": 23,
+      "SeriesDescription": "ep2d_diff_mddw64_p2_MP",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 6100.0,
+      "EchoTime": 57.0,
+      "InversionTime": "",
+      "FlipAngle": 90.0,
+      "PixelSpacing": [
+        2.0,
+        2.0
+      ],
+      "SliceThickness": 2.0,
+      "SpacingBetweenSlices": 1.999999995192,
+      "Rows": 900,
+      "Columns": 900,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99970823869231,
+        0.01802241407301,
+        -0.0160819800307,
+        -0.0226865284038,
+        0.92914855507525,
+        -0.3690098698281
+      ],
+      "ImagePositionPatient": [
+        -881.77329416153,
+        -873.40150788407,
+        297.69125023062
+      ],
+      "ScanningSequence": "EP",
+      "SequenceVariant": [
+        "SK",
+        "SP"
+      ],
+      "ScanOptions": [
+        "PFP",
+        "FS"
+      ],
+      "MRAcquisitionType": "2D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "DIFFUSION",
+        "NONE",
+        "ND",
+        "MOSAIC"
+      ],
+      "DerivedOrientation": "axial",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "080458.862500",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 67,
+      "computed_slice_count": 1,
+      "reason": "fewer than min_slices (10)"
+    }
+  },
+  {
+    "status": "converted",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/104-MPR_TRA_Da_Fl/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.24719092978682958325042915539330649222",
+      "SeriesNumber": 104,
+      "SeriesDescription": "MPR_TRA_Da_Fl",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 5000.0,
+      "EchoTime": 394.0,
+      "InversionTime": 1800.0,
+      "FlipAngle": 120.0,
+      "PixelSpacing": [
+        0.488281,
+        0.488281
+      ],
+      "SliceThickness": 1.0,
+      "SpacingBetweenSlices": "",
+      "Rows": 512,
+      "Columns": 512,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99994259758352,
+        -0.0010070273913,
+        0.01066711928121,
+        0.005748170609,
+        0.89059510091823,
+        -0.4547607335238
+      ],
+      "ImagePositionPatient": [
+        -128.39805811661,
+        -97.646556990012,
+        89.95100671371
+      ],
+      "ScanningSequence": [
+        "SE",
+        "IR"
+      ],
+      "SequenceVariant": [
+        "SK",
+        "SP",
+        "MP"
+      ],
+      "ScanOptions": [
+        "IR",
+        "PFP"
+      ],
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "DERIVED",
+        "SECONDARY",
+        "MPR",
+        "CSA MPR",
+        "",
+        "CSAPARALLEL",
+        "M",
+        "NORM",
+        "DIS3D",
+        "DIS2D"
+      ],
+      "DerivedOrientation": "axial",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "074005.762500",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 146,
+      "computed_slice_count": 146,
+      "outname_prefix": "104_MPR_TRA_Da_Fl",
+      "is_t1_candidate": false,
+      "produced_nifti_files": [
+        "104_MPR_TRA_Da_Fla.nii.gz",
+        "104_MPR_TRA_Da_Fl.nii.gz"
+      ],
+      "kept_nifti_files": [
+        "104_MPR_TRA_Da_Fl.nii.gz"
+      ],
+      "unreadable_nifti_files": []
+    }
+  },
+  {
+    "status": "converted",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/105-MPRAGE_GRAPPA2/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.245854971667287124808344620282763986475",
+      "SeriesNumber": 105,
+      "SeriesDescription": "MPRAGE GRAPPA2",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 2300.0,
+      "EchoTime": 2.98,
+      "InversionTime": 900.0,
+      "FlipAngle": 9.0,
+      "PixelSpacing": [
+        1.0,
+        1.0
+      ],
+      "SliceThickness": 1.0,
+      "SpacingBetweenSlices": "",
+      "Rows": 256,
+      "Columns": 240,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.00063588264689,
+        0.99939639846966,
+        0.03473376425237,
+        0.01069577212849,
+        0.03472498729984,
+        -0.9993396698398
+      ],
+      "ImagePositionPatient": [
+        64.747586067077,
+        -142.36152662447,
+        97.094668729547
+      ],
+      "ScanningSequence": [
+        "GR",
+        "IR"
+      ],
+      "SequenceVariant": [
+        "SK",
+        "SP",
+        "MP"
+      ],
+      "ScanOptions": "IR",
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "M",
+        "NORM",
+        "DIS3D",
+        "DIS2D"
+      ],
+      "DerivedOrientation": "sagittal",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "073439.230000",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 176,
+      "computed_slice_count": 176,
+      "outname_prefix": "105_MPRAGE_GRAPPA2",
+      "is_t1_candidate": true,
+      "produced_nifti_files": [
+        "105_MPRAGE_GRAPPA2.nii.gz"
+      ],
+      "kept_nifti_files": [
+        "105_MPRAGE_GRAPPA2.nii.gz"
+      ],
+      "unreadable_nifti_files": []
+    }
+  },
+  {
+    "status": "converted",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/10-AAHead_Scout/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.157418753586691059849935574166450771597",
+      "SeriesNumber": 10,
+      "SeriesDescription": "AAHead_Scout",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 3.15,
+      "EchoTime": 1.37,
+      "InversionTime": "",
+      "FlipAngle": 8.0,
+      "PixelSpacing": [
+        1.625,
+        1.625
+      ],
+      "SliceThickness": 1.6000000238419,
+      "SpacingBetweenSlices": "",
+      "Rows": 160,
+      "Columns": 160,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "ImagePositionPatient": [
+        -60.00000089407,
+        -140.0,
+        130.0
+      ],
+      "ScanningSequence": "GR",
+      "SequenceVariant": "SP",
+      "ScanOptions": "PFP",
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "M",
+        "NORM",
+        "DIS2D"
+      ],
+      "DerivedOrientation": "sagittal",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "073258.747500",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 128,
+      "computed_slice_count": 128,
+      "outname_prefix": "010_AAHead_Scout",
+      "is_t1_candidate": false,
+      "produced_nifti_files": [
+        "010_AAHead_Scout.nii.gz"
+      ],
+      "kept_nifti_files": [
+        "010_AAHead_Scout.nii.gz"
+      ],
+      "unreadable_nifti_files": []
+    }
+  },
+  {
+    "status": "converted",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/19-mIP_Images_SW_/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.89978320673967388176339929998937145722",
+      "SeriesNumber": 19,
+      "SeriesDescription": "mIP_Images(SW)",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 28.0,
+      "EchoTime": 20.0,
+      "InversionTime": "",
+      "FlipAngle": 15.0,
+      "PixelSpacing": [
+        0.57291668653488,
+        0.57291668653488
+      ],
+      "SliceThickness": 8.0,
+      "SpacingBetweenSlices": "",
+      "Rows": 384,
+      "Columns": 312,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99970823820267,
+        0.01802244245979,
+        -0.0160819786564,
+        -0.022686554198,
+        0.92914855807468,
+        -0.3690098606899
+      ],
+      "ImagePositionPatient": [
+        -88.543436557504,
+        -98.178221637193,
+        67.393450185856
+      ],
+      "ScanningSequence": "GR",
+      "SequenceVariant": [
+        "SP",
+        "OSP"
+      ],
+      "ScanOptions": "",
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "MNIP",
+        "ND",
+        "NORM"
+      ],
+      "DerivedOrientation": "axial",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "074553.780000",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 137,
+      "computed_slice_count": 137,
+      "outname_prefix": "019_mIP_Images(SW)",
+      "is_t1_candidate": false,
+      "produced_nifti_files": [
+        "019_mIP_Images(SW).nii.gz"
+      ],
+      "kept_nifti_files": [
+        "019_mIP_Images(SW).nii.gz"
+      ],
+      "unreadable_nifti_files": []
+    }
+  },
+  {
+    "status": "converted",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/18-Pha_Images/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.251021311048975455557014006948809962188",
+      "SeriesNumber": 18,
+      "SeriesDescription": "Pha_Images",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 28.0,
+      "EchoTime": 20.0,
+      "InversionTime": "",
+      "FlipAngle": 15.0,
+      "PixelSpacing": [
+        0.57291668653488,
+        0.57291668653488
+      ],
+      "SliceThickness": 1.0,
+      "SpacingBetweenSlices": "",
+      "Rows": 384,
+      "Columns": 312,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99970823820267,
+        0.01802244245979,
+        -0.0160819786564,
+        -0.022686554198,
+        0.92914855807468,
+        -0.3690098606899
+      ],
+      "ImagePositionPatient": [
+        -88.804637338898,
+        -109.81013347248,
+        38.120930628977
+      ],
+      "ScanningSequence": "GR",
+      "SequenceVariant": [
+        "SP",
+        "OSP"
+      ],
+      "ScanOptions": "",
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "P",
+        "ND"
+      ],
+      "DerivedOrientation": "axial",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "074553.780000",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 144,
+      "computed_slice_count": 144,
+      "outname_prefix": "018_Pha_Images",
+      "is_t1_candidate": false,
+      "produced_nifti_files": [
+        "018_Pha_Images_ph.nii.gz"
+      ],
+      "kept_nifti_files": [
+        "018_Pha_Images_ph.nii.gz"
+      ],
+      "unreadable_nifti_files": []
+    }
+  },
+  {
+    "status": "converted",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/17-Mag_Images/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.71410070873995465563720817654355286393",
+      "SeriesNumber": 17,
+      "SeriesDescription": "Mag_Images",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 28.0,
+      "EchoTime": 20.0,
+      "InversionTime": "",
+      "FlipAngle": 15.0,
+      "PixelSpacing": [
+        0.57291668653488,
+        0.57291668653488
+      ],
+      "SliceThickness": 1.0,
+      "SpacingBetweenSlices": "",
+      "Rows": 384,
+      "Columns": 312,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99970823820267,
+        0.01802244245979,
+        -0.0160819786564,
+        -0.022686554198,
+        0.92914855807468,
+        -0.3690098606899
+      ],
+      "ImagePositionPatient": [
+        -88.298819952707,
+        -87.284843886685,
+        94.807397072457
+      ],
+      "ScanningSequence": "GR",
+      "SequenceVariant": [
+        "SP",
+        "OSP"
+      ],
+      "ScanOptions": "",
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "M",
+        "ND",
+        "NORM"
+      ],
+      "DerivedOrientation": "axial",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "074553.780000",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 144,
+      "computed_slice_count": 144,
+      "outname_prefix": "017_Mag_Images",
+      "is_t1_candidate": false,
+      "produced_nifti_files": [
+        "017_Mag_Images.nii.gz"
+      ],
+      "kept_nifti_files": [
+        "017_Mag_Images.nii.gz"
+      ],
+      "unreadable_nifti_files": []
+    }
+  },
+  {
+    "status": "converted",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/16-pd_t2_tse_tra_3mm/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.239301427293761301532013200906924456785",
+      "SeriesNumber": 16,
+      "SeriesDescription": "pd+t2_tse_tra_3mm",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 3200.0,
+      "EchoTime": 9.4,
+      "InversionTime": "",
+      "FlipAngle": 160.0,
+      "PixelSpacing": [
+        0.359375,
+        0.359375
+      ],
+      "SliceThickness": 4.0,
+      "SpacingBetweenSlices": 5.0,
+      "Rows": 640,
+      "Columns": 540,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99970823820267,
+        0.01802244245979,
+        -0.0160819786564,
+        -0.022686554198,
+        0.92914855807468,
+        -0.3690098606899
+      ],
+      "ImagePositionPatient": [
+        -95.880860716513,
+        -93.914902629509,
+        92.12914157143
+      ],
+      "ScanningSequence": "SE",
+      "SequenceVariant": [
+        "SK",
+        "SP"
+      ],
+      "ScanOptions": "",
+      "MRAcquisitionType": "2D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "M",
+        "NORM",
+        "DIS3D",
+        "DIS2D"
+      ],
+      "DerivedOrientation": "axial",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "074404.867500",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 60,
+      "computed_slice_count": 30,
+      "outname_prefix": "016_pd+t2_tse_tra_3mm",
+      "is_t1_candidate": false,
+      "produced_nifti_files": [
+        "016_pd+t2_tse_tra_3mm_e1.nii.gz",
+        "016_pd+t2_tse_tra_3mm_e2.nii.gz"
+      ],
+      "kept_nifti_files": [
+        "016_pd+t2_tse_tra_3mm_e1.nii.gz",
+        "016_pd+t2_tse_tra_3mm_e2.nii.gz"
+      ],
+      "unreadable_nifti_files": []
+    }
+  },
+  {
+    "status": "converted",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/20-SWI_Images/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.109039538064346626671734361808428519515",
+      "SeriesNumber": 20,
+      "SeriesDescription": "SWI_Images",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 28.0,
+      "EchoTime": 20.0,
+      "InversionTime": "",
+      "FlipAngle": 15.0,
+      "PixelSpacing": [
+        0.57291668653488,
+        0.57291668653488
+      ],
+      "SliceThickness": 1.0,
+      "SpacingBetweenSlices": "",
+      "Rows": 384,
+      "Columns": 312,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.99970823820267,
+        0.01802244245979,
+        -0.0160819786564,
+        -0.022686554198,
+        0.92914855807468,
+        -0.3690098606899
+      ],
+      "ImagePositionPatient": [
+        -88.663671837828,
+        -103.53259375185,
+        53.91879832634
+      ],
+      "ScanningSequence": "GR",
+      "SequenceVariant": [
+        "SP",
+        "OSP"
+      ],
+      "ScanOptions": "",
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "M",
+        "SWI",
+        "ND",
+        "NORM"
+      ],
+      "DerivedOrientation": "axial",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "074553.780000",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 144,
+      "computed_slice_count": 144,
+      "outname_prefix": "020_SWI_Images",
+      "is_t1_candidate": false,
+      "produced_nifti_files": [
+        "020_SWI_Images.nii.gz"
+      ],
+      "kept_nifti_files": [
+        "020_SWI_Images.nii.gz"
+      ],
+      "unreadable_nifti_files": []
+    }
+  },
+  {
+    "status": "converted",
+    "params": {
+      "SeriesPath": "/home/zohaib/Downloads/pipeline_test/1000853/1000853_DICOM_HEAD/scans/106-t2_spc_da_fl_sag_p2_iso/resources/DICOM/files",
+      "PatientID": "224558",
+      "StudyInstanceUID": "9999.202679857496840460185332040559005542127",
+      "SeriesInstanceUID": "9999.212887606805189470346153233233727098034",
+      "SeriesNumber": 106,
+      "SeriesDescription": "t2_spc_da-fl_sag_p2_iso",
+      "ProtocolName": "",
+      "Modality": "MR",
+      "Manufacturer": "SIEMENS",
+      "ManufacturerModelName": "Prisma_fit",
+      "MagneticFieldStrength": 3.0,
+      "RepetitionTime": 5000.0,
+      "EchoTime": 394.0,
+      "InversionTime": 1800.0,
+      "FlipAngle": 120.0,
+      "PixelSpacing": [
+        0.48828125,
+        0.48828125
+      ],
+      "SliceThickness": 1.0,
+      "SpacingBetweenSlices": "",
+      "Rows": 512,
+      "Columns": 512,
+      "PatientPosition": "HFS",
+      "ImageOrientationPatient": [
+        0.00063606097533,
+        0.99939676890749,
+        0.03472310072133,
+        0.01069565165673,
+        0.03471432259315,
+        -0.9993400416488
+      ],
+      "ImagePositionPatient": [
+        -75.215476843047,
+        -147.11206716086,
+        92.430955681439
+      ],
+      "ScanningSequence": [
+        "SE",
+        "IR"
+      ],
+      "SequenceVariant": [
+        "SK",
+        "SP",
+        "MP"
+      ],
+      "ScanOptions": [
+        "IR",
+        "PFP"
+      ],
+      "MRAcquisitionType": "3D",
+      "ImageType": [
+        "ORIGINAL",
+        "PRIMARY",
+        "M",
+        "NORM",
+        "DIS3D",
+        "DIS2D"
+      ],
+      "DerivedOrientation": "sagittal",
+      "SeriesDate": "20060806",
+      "AcquisitionDate": "20060806",
+      "StudyDate": "20060806",
+      "AcquisitionDateTime": "",
+      "AcquisitionTime": "074005.762500",
+      "StudyTime": "072006",
+      "BodyPartExamined": "ABDOMEN",
+      "num_instances": 176,
+      "computed_slice_count": 176,
+      "outname_prefix": "106_t2_spc_da-fl_sag_p2_iso",
+      "is_t1_candidate": false,
+      "produced_nifti_files": [
+        "106_t2_spc_da-fl_sag_p2_iso.nii.gz"
+      ],
+      "kept_nifti_files": [
+        "106_t2_spc_da-fl_sag_p2_iso.nii.gz"
+      ],
+      "unreadable_nifti_files": []
+    }
+  }
+]
