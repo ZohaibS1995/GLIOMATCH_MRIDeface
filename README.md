@@ -49,9 +49,9 @@ graph TD
 
 ```text
 .
-├── main.py
-├── paths_config.py          # YOU EDIT ONLY session_dir + output_dir paths here
-├── logic_config.py          # Defacing and T1-identification rules (usually no change)
+├── Scripts/main.py
+├── Scripts/paths_config.py          # YOU EDIT ONLY session_dir + output_dir paths here
+├── Scripts/logic_config.py          # Defacing and T1-identification rules (usually no change)
 ├── requirements.txt
 └── README.md
 ```
