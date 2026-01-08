@@ -7,7 +7,6 @@ import shutil
 from typing import Tuple
 
 # --- IMPORT CONFIGURATIONS ---
-# Ensure these modules exist in your environment
 import paths_config
 import logic_config
 
@@ -228,20 +227,103 @@ def run_dcm2niix(series_dir: Path, output_dir: Path, outname_prefix: str):
 
 
 def run_mideface(input_nifti: Path, output_dir: Path) -> Tuple[Path, Path]:
+    """
+    Runs mideface to create a defaced T1 and a face mask.
+    If configured, runs mideface/mri_convert inside a Docker container instead of host FreeSurfer.
+    """
     tmp_dir = output_dir / "_mideface_tmp"
     tmp_dir.mkdir(parents=True, exist_ok=True)
 
-    mideface_tool = paths_config.MIDEFACE_PATH
-    mri_convert_tool = paths_config.MRI_CONVERT_PATH
+    def _resolve_license_host_path() -> Path:
+        env = os.environ.get("FS_LICENSE")
+        if env:
+            p = Path(env)
+            if p.exists():
+                return p.resolve()
 
-    cmd = [
-        mideface_tool,
-        "--i", str(input_nifti),
-        "--odir", str(tmp_dir),
-    ]
+        p = Path(getattr(paths_config, "FREESURFER_LICENSE_PATH", "license.txt"))
+        if p.exists():
+            return p.resolve()
 
-    print(f"[INFO] Running: {' '.join(cmd)}")
-    subprocess.run(cmd, check=True)
+        raise FileNotFoundError(
+            "FreeSurfer license not found. Set FS_LICENSE env var to a valid license file, "
+            f"or set paths_config.FREESURFER_LICENSE_PATH. Tried: FS_LICENSE={env!r}, "
+            f"paths_config.FREESURFER_LICENSE_PATH={getattr(paths_config, 'FREESURFER_LICENSE_PATH', None)!r}"
+        )
+
+    def _docker_prefix() -> list:
+        """
+        Optional sudo prefix. Controlled by:
+          paths_config.DOCKER_USE_SUDO (bool)
+          paths_config.DOCKER_SUDO_NONINTERACTIVE (bool) [optional]
+        """
+        if getattr(paths_config, "DOCKER_USE_SUDO", False):
+            if getattr(paths_config, "DOCKER_SUDO_NONINTERACTIVE", False):
+                return ["sudo", "-n"]
+            return ["sudo"]
+        return []
+
+    def _docker_run_base_args() -> list:
+        """
+        Returns the docker 'run' command args up to (but not including) entrypoint/image.
+        IMPORTANT: In docker, --entrypoint must appear BEFORE the image.
+        """
+        docker_bin = getattr(paths_config, "DOCKER_BIN", "docker")
+
+        license_host = _resolve_license_host_path()
+        input_host = input_nifti.resolve()
+        tmp_host = tmp_dir.resolve()
+        out_host = output_dir.resolve()
+
+        args = _docker_prefix() + [
+            docker_bin, "run", "--rm",
+            "-v", f"{license_host}:/usr/local/freesurfer/license.txt:ro",
+            "-e", "FS_LICENSE=/usr/local/freesurfer/license.txt",
+            "-v", f"{input_host}:/in/input.nii.gz:ro",
+            "-v", f"{tmp_host}:/out",
+            "-v", f"{out_host}:/final",
+        ]
+
+        # Run container as host UID:GID to avoid root-owned outputs on host (Linux)
+        if getattr(paths_config, "DOCKER_RUN_AS_HOST_USER", False):
+            try:
+                uid = os.getuid()
+                gid = os.getgid()
+                args += ["--user", f"{uid}:{gid}"]
+            except Exception:
+                pass
+
+        return args
+
+    def _docker_cmd(entrypoint_abs: str, extra_args_after_image: list) -> list:
+        """
+        Build a correct docker run command:
+          docker run [OPTIONS] --entrypoint <entrypoint> <image> [args...]
+        """
+        image = getattr(paths_config, "FREESURFER_DOCKER_IMAGE", "freesurfer/freesurfer:7.4.1")
+        base = _docker_run_base_args()
+        return base + ["--entrypoint", entrypoint_abs, image] + extra_args_after_image
+
+    use_docker = bool(getattr(paths_config, "USE_DOCKER_FOR_MIDEFACE", True))
+
+    if not use_docker:
+        # Host FreeSurfer tools
+        mideface_tool = paths_config.MIDEFACE_PATH
+        cmd = [
+            mideface_tool,
+            "--i", str(input_nifti),
+            "--odir", str(tmp_dir),
+        ]
+        print(f"[INFO] Running (HOST): {' '.join(cmd)}")
+        subprocess.run(cmd, check=True)
+    else:
+        # Docker FreeSurfer tools (FIXED ORDER: --entrypoint BEFORE IMAGE)
+        cmd = _docker_cmd(
+            "/usr/local/freesurfer/bin/mideface",
+            ["--i", "/in/input.nii.gz", "--odir", "/out"]
+        )
+        print(f"[INFO] Running (DOCKER): {' '.join(cmd)}")
+        subprocess.run(cmd, check=True)
 
     nifti_candidates = list(tmp_dir.glob("*.nii")) + list(tmp_dir.glob("*.nii.gz"))
     mgz_candidates = list(tmp_dir.glob("*.mgz"))
@@ -257,29 +339,42 @@ def run_mideface(input_nifti: Path, output_dir: Path) -> Tuple[Path, Path]:
             return preferred[0]
         return max(paths, key=lambda p: p.stat().st_size)
 
-    # defaced image
+    # ---- defaced image ----
     if nifti_candidates:
         chosen = pick_preferred(nifti_candidates)
         final_defaced_path = output_dir / defaced_nifti_name(input_nifti)
         shutil.move(str(chosen), str(final_defaced_path))
+
     elif mgz_candidates:
         chosen = pick_preferred(mgz_candidates)
         final_defaced_path = output_dir / defaced_nifti_name(input_nifti)
-        if not mri_convert_tool:
-            shutil.rmtree(tmp_dir, ignore_errors=True)
-            raise RuntimeError("mideface produced defaced .mgz but mri_convert_path is empty in config.")
-        convert_cmd = [
-            mri_convert_tool,
-            str(chosen),
-            str(final_defaced_path),
-        ]
-        print(f"[INFO] Converting MGZ to NIfTI: {' '.join(convert_cmd)}")
-        subprocess.run(convert_cmd, check=True)
+
+        if not use_docker:
+            mri_convert_tool = paths_config.MRI_CONVERT_PATH
+            if not mri_convert_tool:
+                shutil.rmtree(tmp_dir, ignore_errors=True)
+                raise RuntimeError("mideface produced defaced .mgz but mri_convert_path is empty in config.")
+            convert_cmd = [
+                mri_convert_tool,
+                str(chosen),
+                str(final_defaced_path),
+            ]
+            print(f"[INFO] Converting MGZ to NIfTI (HOST): {' '.join(convert_cmd)}")
+            subprocess.run(convert_cmd, check=True)
+        else:
+            # chosen is in tmp_dir => mounted to /out ; output_dir => mounted to /final
+            convert_cmd = _docker_cmd(
+                "/usr/local/freesurfer/bin/mri_convert",
+                [f"/out/{chosen.name}", f"/final/{final_defaced_path.name}"]
+            )
+            print(f"[INFO] Converting MGZ to NIfTI (DOCKER): {' '.join(convert_cmd)}")
+            subprocess.run(convert_cmd, check=True)
+
     else:
         shutil.rmtree(tmp_dir, ignore_errors=True)
         raise RuntimeError(f"mideface produced no defaced image in {tmp_dir}")
 
-    # face mask
+    # ---- face mask ----
     final_mask_path = output_dir / f"{input_nifti.stem}_deface_mask.nii.gz"
     face_mask_nii = None
     for cand in ["face.mask.nii.gz", "face.mask.nii"]:
@@ -293,16 +388,25 @@ def run_mideface(input_nifti: Path, output_dir: Path) -> Tuple[Path, Path]:
     else:
         face_mask_mgz = tmp_dir / "face.mask.mgz"
         if face_mask_mgz.exists():
-            if not mri_convert_tool:
-                shutil.rmtree(tmp_dir, ignore_errors=True)
-                raise RuntimeError("mideface produced face.mask.mgz but mri_convert_path is empty in config.")
-            convert_cmd = [
-                mri_convert_tool,
-                str(face_mask_mgz),
-                str(final_mask_path),
-            ]
-            print(f"[INFO] Converting face.mask.mgz to NIfTI: {' '.join(convert_cmd)}")
-            subprocess.run(convert_cmd, check=True)
+            if not use_docker:
+                mri_convert_tool = paths_config.MRI_CONVERT_PATH
+                if not mri_convert_tool:
+                    shutil.rmtree(tmp_dir, ignore_errors=True)
+                    raise RuntimeError("mideface produced face.mask.mgz but mri_convert_path is empty in config.")
+                convert_cmd = [
+                    mri_convert_tool,
+                    str(face_mask_mgz),
+                    str(final_mask_path),
+                ]
+                print(f"[INFO] Converting face.mask.mgz to NIfTI (HOST): {' '.join(convert_cmd)}")
+                subprocess.run(convert_cmd, check=True)
+            else:
+                convert_cmd = _docker_cmd(
+                    "/usr/local/freesurfer/bin/mri_convert",
+                    ["/out/face.mask.mgz", f"/final/{final_mask_path.name}"]
+                )
+                print(f"[INFO] Converting face.mask.mgz to NIfTI (DOCKER): {' '.join(convert_cmd)}")
+                subprocess.run(convert_cmd, check=True)
         else:
             shutil.rmtree(tmp_dir, ignore_errors=True)
             raise RuntimeError("Expected 'face.mask.mgz' (or NIfTI) from mideface but did not find it.")
@@ -438,7 +542,7 @@ def process_single_session(session_dir: Path, outdir: Path):
         all_metadata.append(meta)
 
     # Always write a per-session report into THIS session's defaced folder
-    report_file = paths_config.REPORT_FILENAME  # now just a name, e.g. session_report.json
+    report_file = paths_config.REPORT_FILENAME  # name only
     report_path = defaced_dir / report_file
 
     if not found_any:
