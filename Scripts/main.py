@@ -162,25 +162,7 @@ def extract_metadata(dcm: pydicom.dataset.FileDataset, series_path: Path,
 
 def score_t1_candidate(meta: dict) -> int:
     """Scores a series to find the best T1 for mideface input."""
-    desc = (meta.get("SeriesDescription") or "").lower()
-    prot = (meta.get("ProtocolName") or "").lower()
-    n = meta.get("computed_slice_count") or 0
-
-    conf = logic_config.LOGIC.get("t1_identification", {})
-    keywords = [k.lower() for k in conf.get("keywords", [])]
-    priority = [k.lower() for k in conf.get("priority_keywords", [])]
-
-    score = 0
-    full_str = f"{desc} {prot}"
-
-    if any(k in full_str for k in keywords):
-        score += 50
-    if any(k in full_str for k in priority):
-        score += 20
-    score += min(n, 300) // 5
-    if "head" in full_str or "brain" in full_str:
-        score += 5
-    return score
+    return logic_config.score_t1_candidate(meta)
 
 
 def is_candidate_for_defacing(meta: dict) -> bool:
