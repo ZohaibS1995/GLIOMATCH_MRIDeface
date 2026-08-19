@@ -422,6 +422,7 @@ def deface_moving_via_t1_mask(
         fixed=moving,
         moving=mask_fixed,
         transformlist=reg["invtransforms"],
+        whichtoinvert=[True],
         interpolator="nearestNeighbor"
     )
 
