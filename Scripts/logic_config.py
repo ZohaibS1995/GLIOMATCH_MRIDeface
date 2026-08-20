@@ -131,6 +131,9 @@ def score_t1_candidate(meta: dict) -> int:
     if "head" in sequence_text or "brain" in sequence_text:
         score += 5
 
+    if "kmacpc" in sequence_text:
+        score -= 10
+    
     if preference["PreferredT1SeriesDescriptionMatch"]:
         score += conf.get("preferred_bonus", 200)
     elif preference["FallbackT1SeriesDescriptionMatch"]:

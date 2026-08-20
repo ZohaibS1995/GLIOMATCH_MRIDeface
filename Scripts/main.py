@@ -583,7 +583,14 @@ def process_single_session(session_dir: Path, outdir: Path):
             continue
 
         after = set(conversion_dir.glob("*.nii")) | set(conversion_dir.glob("*.nii.gz"))
-        new_niftis = list(after - before)
+        # Sort deterministically: set difference order is not stable across runs
+        # (Path hashing depends on Python's randomized str hash seed), which was
+        # causing a different file to be picked as the T1 defacing candidate
+        # between runs when a series produced multiple NIfTI outputs.
+        # Sorted in reverse so that dcm2niix's disambiguated "a"-suffixed
+        # filename (e.g. "...ACPCa.nii.gz") is preferred over the plain one
+        # (e.g. "...ACPC.nii.gz") when both are produced for the same series.
+        new_niftis = sorted(after - before, key=lambda p: p.name, reverse=True)
         good_niftis = []
         unreadable_niftis = []
 
